@@ -46,6 +46,10 @@ export default function HomePage() {
               setResult(null);
               setListing(null);
             }}
+            onUpdate={(next, nextListing) => {
+              setResult(next);
+              setListing(nextListing);
+            }}
           />
         )}
       </main>

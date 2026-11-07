@@ -146,13 +146,56 @@ export function scoreScamRisk(
     );
   }
 
-  if (listing.rtbClaimed === false) {
+  // Soft RTB signals only — never enough alone to auto-veto.
+  if (listing.rtbRegisterCheck === "not_found") {
+    pushReason(
+      reasons,
+      {
+        id: "rtb-not-found",
+        label: "RTB register: not found",
+        detail:
+          "Check the Register returned Found = N. Ask for an RT number (or digs/owner-occupied explanation) before paying a deposit. Address typos can also miss matches.",
+        severity: "medium",
+        category: "scam",
+      },
+      10,
+      score
+    );
+  } else if (listing.rtbRegisterCheck === "found") {
+    reasons.push({
+      id: "rtb-found",
+      label: "RTB register: found",
+      detail:
+        "You confirmed Found = Y on Check the Register. Still view in person — registration is not a scam-free guarantee.",
+      severity: "low",
+      category: "scam",
+    });
+  } else if (listing.rtbRegisterCheck === "digs_exempt") {
+    reasons.push({
+      id: "rtb-digs",
+      label: "Digs / likely RTB-exempt",
+      detail:
+        "Owner-occupied digs often do not appear on the RTB register. Confirm the living arrangement in writing.",
+      severity: "low",
+      category: "scam",
+    });
+  } else if (listing.rtbRegisterCheck === "unsure") {
+    reasons.push({
+      id: "rtb-unsure",
+      label: "RTB check unfinished",
+      detail:
+        "Finish Check the Register (or ask for an RT number) before money leaves your account.",
+      severity: "low",
+      category: "scam",
+    });
+  } else if (listing.rtbClaimed === false) {
     pushReason(
       reasons,
       {
         id: "no-rtb",
         label: "No RTB registration claimed",
-        detail: "For a full private tenancy, ask for an RTB number and verify before paying a deposit.",
+        detail:
+          "For a full private tenancy, open Check the Register and verify before paying a deposit.",
         severity: "medium",
         category: "scam",
       },

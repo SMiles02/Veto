@@ -103,7 +103,7 @@ function rentReasons(fair: ReturnType<typeof assessFairRent>): ScoreReason[] {
   ];
 }
 
-function pickTopReasons(reasons: ScoreReason[], max = 3): ScoreReason[] {
+function pickTopReasons(reasons: ScoreReason[], max = 4): ScoreReason[] {
   const rank = { high: 0, medium: 1, low: 2 };
   return [...reasons]
     .sort((a, b) => rank[a.severity] - rank[b.severity])

@@ -5,13 +5,19 @@ const checklist = [
   "Exact address matches Google Street View / maps",
   "View in person before any deposit",
   "Test the keys yourself on viewing day",
-  "Ask for RTB number (or digs/owner-occupied explanation)",
+  "Check the Register on RTB (Found = Y/N) or digs explanation",
+  "Ask for RTB number if the register returns Found = N",
   "Get a written lease + receipt - never cash-only",
   "Compare rent to nearby ads before accepting",
   "Photograph metre readings and room condition on move-in",
 ];
 
 const rights = [
+  {
+    name: "RTB Check the Register",
+    href: "https://rtb.ie/compliance/check-the-register/",
+    blurb: "Official Found = Y/N check for a rented address / Eircode",
+  },
   {
     name: "RTB",
     href: "https://www.rtb.ie/",

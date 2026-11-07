@@ -4,16 +4,19 @@ import type { ListingInput, VetoResult } from "@/lib/veto/types";
 import Link from "next/link";
 import { MapPin } from "./MapPin";
 import { ReasonList } from "./ReasonList";
+import { RtbVerifyPanel } from "./RtbVerifyPanel";
 import { ScoreStamp } from "./ScoreStamp";
 
 export function VetoResultPanel({
   result,
   listing,
   onReset,
+  onUpdate,
 }: {
   result: VetoResult;
   listing: ListingInput;
   onReset: () => void;
+  onUpdate: (next: VetoResult, nextListing: ListingInput) => void;
 }) {
   return (
     <section className="space-y-8">
@@ -27,6 +30,10 @@ export function VetoResultPanel({
             stampLabel={result.stampLabel}
           />
           <p className="mt-4 max-w-xl text-ink/75">{result.summary}</p>
+          <p className="mt-2 max-w-xl text-xs text-mute">
+            Scores are indicative, not 100% accurate — always view in person
+            before paying.
+          </p>
         </div>
         <div className="rounded-lg border border-ink/10 bg-white/70 px-4 py-3 text-sm">
           <p className="text-mute">Scam risk</p>
@@ -38,6 +45,8 @@ export function VetoResultPanel({
           </p>
         </div>
       </div>
+
+      <RtbVerifyPanel listing={listing} result={result} onUpdate={onUpdate} />
 
       <div className="grid gap-6 lg:grid-cols-2">
         <div>

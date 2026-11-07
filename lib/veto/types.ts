@@ -2,6 +2,13 @@ export type VetoDecision = "WALK_AWAY" | "NEGOTIATE" | "PROCEED";
 
 export type Severity = "high" | "medium" | "low";
 
+/** User-reported outcome from RTB Check the Register (not scraped). */
+export type RtbRegisterCheck =
+  | "found"
+  | "not_found"
+  | "digs_exempt"
+  | "unsure";
+
 export interface ListingInput {
   title?: string;
   address: string;
@@ -14,6 +21,8 @@ export interface ListingInput {
   lat?: number;
   lng?: number;
   rtbClaimed?: boolean;
+  /** Result after the student uses RTB Check the Register. */
+  rtbRegisterCheck?: RtbRegisterCheck;
   paymentBeforeViewing?: boolean;
 }
 
