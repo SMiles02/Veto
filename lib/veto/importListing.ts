@@ -18,8 +18,14 @@ const AREA_COORDS: Record<string, { lat: number; lng: number }> = {
   ballincollig: { lat: 51.889, lng: -8.588 },
   "city centre": { lat: 51.898, lng: -8.475 },
   magazine: { lat: 51.891, lng: -8.505 },
+  "magazine road": { lat: 51.891, lng: -8.505 },
   wilton: { lat: 51.882, lng: -8.51 },
   bishopstown: { lat: 51.886, lng: -8.54 },
+  douglas: { lat: 51.877, lng: -8.436 },
+  blackrock: { lat: 51.895, lng: -8.42 },
+  mahon: { lat: 51.885, lng: -8.39 },
+  ballyphehane: { lat: 51.88, lng: -8.48 },
+  "turners cross": { lat: 51.885, lng: -8.465 },
 };
 
 function titleCaseSlug(slug: string): string {
@@ -44,6 +50,8 @@ function guessArea(text: string): string | undefined {
     "western road",
     "sunday's well",
     "sundays well",
+    "magazine road",
+    "turners cross",
     "glasheen",
     "gillabbey",
     "blackpool",
@@ -52,6 +60,10 @@ function guessArea(text: string): string | undefined {
     "magazine",
     "wilton",
     "bishopstown",
+    "douglas",
+    "blackrock",
+    "mahon",
+    "ballyphehane",
   ];
   return keys.find((k) => lower.includes(k));
 }
