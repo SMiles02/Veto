@@ -6,25 +6,113 @@
   color-scheme: light;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   min-height: 100%;
 }
 
 body {
-  background:
-    radial-gradient(circle at top left, rgba(215, 38, 61, 0.08), transparent 36%),
-    radial-gradient(circle at 80% 0%, rgba(229, 161, 0, 0.08), transparent 28%),
-    linear-gradient(180deg, #f7f4ef 0%, #efe8de 100%);
-  color: #0a0a0a;
+  background-color: #e8eef2;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 10% -10%, rgba(15, 118, 110, 0.12), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(185, 28, 28, 0.06), transparent 45%),
+    linear-gradient(180deg, #e8eef2 0%, #d7e0e8 48%, #e8eef2 100%);
+  color: #0e1218;
+}
+
+body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
 }
 
 @layer components {
   .field {
-    @apply w-full rounded-lg border border-ink/15 bg-white/80 px-3 py-2.5 text-sm text-ink outline-none transition placeholder:text-ink/35 focus:border-ink/40 focus:ring-2 focus:ring-ink/10;
+    @apply w-full rounded-sm border border-ink/15 bg-paper px-3 py-2.5 text-sm text-ink outline-none transition placeholder:text-ink/35 focus:border-tide/50 focus:ring-2 focus:ring-tide/15;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-sm bg-veto px-5 py-3 text-sm font-semibold tracking-wide text-white transition hover:bg-veto/90 disabled:opacity-60;
+  }
+
+  .btn-ink {
+    @apply inline-flex items-center justify-center rounded-sm bg-ink px-5 py-3 text-sm font-semibold tracking-wide text-paper transition hover:bg-ink/90 disabled:opacity-60;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-sm border border-ink/20 bg-transparent px-5 py-3 text-sm tracking-wide text-ink transition hover:border-ink/40 hover:bg-ink/5;
+  }
+
+  .surface {
+    @apply border border-ink/10 bg-paper/90;
+  }
+
+  .section-title {
+    @apply font-display text-3xl font-semibold tracking-tight text-ink;
   }
 }
 
 .leaflet-container {
   font: inherit;
+  border-radius: 2px;
+}
+
+@keyframes stamp {
+  0% {
+    transform: translateY(-56px) scale(1.4) rotate(-18deg);
+    opacity: 0;
+  }
+  55% {
+    transform: translateY(6px) scale(0.9) rotate(-7deg);
+    opacity: 1;
+  }
+  72% {
+    transform: translateY(-4px) scale(1.04) rotate(-4deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(-6deg);
+    opacity: 1;
+  }
+}
+
+@keyframes stamp-impact {
+  0%,
+  54% {
+    filter: brightness(1);
+  }
+  58% {
+    filter: brightness(1.1);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+.score-stamp {
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.35),
+    0 10px 0 rgba(14, 18, 24, 0.08);
+  animation:
+    stamp 0.75s cubic-bezier(0.16, 0.9, 0.3, 1) forwards,
+    stamp-impact 0.75s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

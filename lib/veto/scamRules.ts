@@ -52,7 +52,7 @@ export function scoreScamRisk(
       {
         id: "pay-before-view",
         label: "Payment before viewing",
-        detail: "Asking for money before an in-person viewing is a classic Cork student housing scam pattern.",
+        detail: "Asking for money before you view in person is a common Cork student housing scam.",
         severity: "high",
         category: "scam",
       },
@@ -67,7 +67,7 @@ export function scoreScamRisk(
       {
         id: "pressure",
         label: "High-pressure language",
-        detail: 'Urgency tactics ("today only", "wire now", "first to pay") are used to skip checks.',
+        detail: 'Phrases like "today only", "wire now", or "first to pay" are there to rush you past checks.',
         severity: "high",
         category: "scam",
       },
@@ -82,7 +82,7 @@ export function scoreScamRisk(
       {
         id: "abroad",
         label: "Landlord claims to be abroad",
-        detail: "Unable to show the property in person is a major CCPC / Garda red flag.",
+        detail: "If they can't show the place in person, treat that as a serious red flag.",
         severity: "high",
         category: "scam",
       },
@@ -102,7 +102,7 @@ export function scoreScamRisk(
       {
         id: "social-only",
         label: "Social-only contact channel",
-        detail: "Listings that only communicate via Messenger/WhatsApp and avoid phone/email are higher risk.",
+        detail: "If they will only talk on Messenger or WhatsApp and avoid phone or email, be careful.",
         severity: "medium",
         category: "scam",
       },
@@ -122,7 +122,7 @@ export function scoreScamRisk(
       {
         id: "vague-address",
         label: "Vague address",
-        detail: "No exact street address makes it hard to verify the property exists.",
+        detail: "Without a clear street address, it is hard to check the place is real.",
         severity: "medium",
         category: "scam",
       },
@@ -137,7 +137,7 @@ export function scoreScamRisk(
       {
         id: "too-cheap",
         label: "Rent far below area comps",
-        detail: `Listed ~${Math.abs(Math.round(rentPercentDiff))}% under local median - too good to be true is a top scam signal in Cork.`,
+        detail: `Listed about ${Math.abs(Math.round(rentPercentDiff))}% under the local median. If it looks too good to be true, it often is.`,
         severity: "high",
         category: "scam",
       },
@@ -146,7 +146,7 @@ export function scoreScamRisk(
     );
   }
 
-  // Soft RTB signals only — never enough alone to auto-veto.
+  // Soft RTB signals only. Never enough alone to auto-veto.
   if (listing.rtbRegisterCheck === "not_found") {
     pushReason(
       reasons,
@@ -166,7 +166,7 @@ export function scoreScamRisk(
       id: "rtb-found",
       label: "RTB register: found",
       detail:
-        "You confirmed Found = Y on Check the Register. Still view in person — registration is not a scam-free guarantee.",
+        "You confirmed Found = Y on Check the Register. Still view in person. Registration does not mean it is safe.",
       severity: "low",
       category: "scam",
     });
@@ -184,7 +184,7 @@ export function scoreScamRisk(
       id: "rtb-unsure",
       label: "RTB check unfinished",
       detail:
-        "Finish Check the Register (or ask for an RT number) before money leaves your account.",
+        "Finish Check the Register, or ask for an RT number, before you pay anything.",
       severity: "low",
       category: "scam",
     });

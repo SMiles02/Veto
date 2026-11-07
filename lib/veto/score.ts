@@ -50,7 +50,7 @@ function areaReasons(area?: AreaIntel): ScoreReason[] {
     reasons.push({
       id: "commute",
       label: `${area.commuteMinutesToUcc} min to UCC`,
-      detail: `${area.neighbourhood} is walkable to campus - expect higher student demand and firmer rents.`,
+      detail: `${area.neighbourhood} is a short walk to campus, so demand (and rents) stay high.`,
       severity: "low",
       category: "area",
     });
@@ -58,7 +58,7 @@ function areaReasons(area?: AreaIntel): ScoreReason[] {
     reasons.push({
       id: "commute-long",
       label: `${area.commuteMinutesToUcc} min commute to UCC`,
-      detail: "Factor bus reliability and late-night return when judging the rent.",
+      detail: "Check the bus home late at night before you agree to the rent.",
       severity: "low",
       category: "area",
     });
@@ -73,7 +73,7 @@ function rentReasons(fair: ReturnType<typeof assessFairRent>): ScoreReason[] {
       {
         id: "overpriced",
         label: `${fair.percentDiff}% above ${fair.area} median`,
-        detail: `Local ${fair.sampleSize}-listing median is €${fair.median}. Push to negotiate ~€${fair.negotiateBy}/mo off.`,
+        detail: `Local median from ${fair.sampleSize} listings is €${fair.median}. Try asking about €${fair.negotiateBy}/mo less.`,
         severity: fair.percentDiff >= 20 ? "high" : "medium",
         category: "rent",
       },
@@ -85,7 +85,7 @@ function rentReasons(fair: ReturnType<typeof assessFairRent>): ScoreReason[] {
       {
         id: "underpriced",
         label: `${Math.abs(fair.percentDiff)}% under ${fair.area} median`,
-        detail: `Median nearby is €${fair.median}. Verify hard before celebrating - underpricing often tracks scams.`,
+        detail: `Nearby median is €${fair.median}. Double-check before you celebrate. Very cheap ads are often scams.`,
         severity: "medium",
         category: "rent",
       },
@@ -96,7 +96,7 @@ function rentReasons(fair: ReturnType<typeof assessFairRent>): ScoreReason[] {
     {
       id: "fair-rent",
       label: `Within range of ${fair.area} comps`,
-      detail: `Asking rent sits near the €${fair.median} median from ${fair.sampleSize} local comps.`,
+      detail: `Asking rent is close to the €${fair.median} median from ${fair.sampleSize} nearby listings.`,
       severity: "low",
       category: "rent",
     },
@@ -133,10 +133,10 @@ export function scoreListing(
 
   const summary =
     decision === "WALK_AWAY"
-      ? "Do not send money. This listing fails basic Cork scam checks."
+      ? "Don't send money. This listing fails basic Cork scam checks."
       : decision === "NEGOTIATE"
-        ? "Not an automatic veto - but do not accept the asking terms as-is."
-        : "No major scam markers. Still view in person and get a written lease before paying.";
+        ? "Not a hard no, but don't accept these terms as they stand."
+        : "Nothing major jumped out. Still view in person and get a written lease before you pay.";
 
   return {
     decision,

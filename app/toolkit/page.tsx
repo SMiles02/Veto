@@ -7,7 +7,7 @@ const checklist = [
   "Test the keys yourself on viewing day",
   "Check the Register on RTB (Found = Y/N) or digs explanation",
   "Ask for RTB number if the register returns Found = N",
-  "Get a written lease + receipt - never cash-only",
+  "Get a written lease and a receipt. Never cash only.",
   "Compare rent to nearby ads before accepting",
   "Photograph metre readings and room condition on move-in",
 ];
@@ -62,88 +62,86 @@ export default function ToolkitPage() {
   return (
     <div className="min-h-screen">
       <Nav active="/toolkit" />
-      <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
-        <div className="mb-10 max-w-2xl">
-          <p className="mb-2 text-sm font-medium text-veto">Toolkit</p>
-          <h1 className="font-display text-4xl tracking-tight text-ink sm:text-5xl">
-            From listing to deposit back
-          </h1>
-          <p className="mt-3 text-ink/70">
-            Today covers verify and sign. Live-in and move-out tools are next.
+      <main className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
+        <header className="mb-14">
+          <p className="font-display text-5xl font-extrabold tracking-tight text-ink sm:text-6xl">
+            Toolkit
           </p>
-        </div>
+          <h1 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+            From the listing to getting your deposit back
+          </h1>
+          <p className="mt-3 max-w-lg text-ink/65">
+            Use this for viewing and signing. More tools for living in and
+            moving out are next.
+          </p>
+        </header>
 
-        <div className="grid gap-6 lg:grid-cols-3">
-          <section className="rounded-xl border border-ink/10 bg-white/70 p-5">
-            <h2 className="font-display text-2xl text-ink">ViewKit</h2>
-            <p className="mt-1 mb-4 text-sm text-mute">
-              Keep this list in your head on viewing day.
-            </p>
-            <ul className="space-y-3">
-              {checklist.map((item) => (
-                <li key={item} className="flex gap-3 text-sm text-ink/80">
-                  <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-veto" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </section>
+        <section className="mb-14">
+          <h2 className="section-title text-2xl">ViewKit</h2>
+          <p className="mt-2 mb-5 text-sm text-mute">
+            Checklist for viewing day.
+          </p>
+          <ol className="space-y-3">
+            {checklist.map((item, i) => (
+              <li key={item} className="flex gap-4 text-sm text-ink/80">
+                <span className="w-6 shrink-0 font-display font-semibold text-tide">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                {item}
+              </li>
+            ))}
+          </ol>
+        </section>
 
-          <section className="rounded-xl border border-ink/10 bg-white/70 p-5">
-            <h2 className="font-display text-2xl text-ink">RightsRail</h2>
-            <p className="mt-1 mb-4 text-sm text-mute">Useful links when something feels off.</p>
-            <ul className="space-y-4">
-              {rights.map((item) => (
-                <li key={item.name}>
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="font-medium text-ink underline decoration-ink/20 underline-offset-4 hover:decoration-veto"
-                  >
-                    {item.name}
-                  </a>
-                  <p className="text-sm text-ink/65">{item.blurb}</p>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="rounded-xl border border-ink/10 bg-white/70 p-5">
-            <h2 className="font-display text-2xl text-ink">Coming next</h2>
-            <p className="mt-1 mb-4 text-sm text-mute">Not built yet - parked for after the demo.</p>
-            <ul className="space-y-4">
-              {roadmap.map((item) => (
-                <li
-                  key={item.name}
-                  className="rounded-lg border border-dashed border-ink/15 bg-paper/50 p-3"
+        <section className="mb-14 border-t border-ink/10 pt-10">
+          <h2 className="section-title text-2xl">RightsRail</h2>
+          <p className="mt-2 mb-5 text-sm text-mute">
+            Places to go if something feels wrong.
+          </p>
+          <ul className="space-y-5">
+            {rights.map((item) => (
+              <li key={item.name}>
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-medium text-ink underline decoration-ink/20 underline-offset-4 hover:decoration-tide"
                 >
-                  <div className="mb-1 flex items-center justify-between">
-                    <p className="font-medium text-ink">{item.name}</p>
-                    <span className="text-[10px] uppercase tracking-wider text-mute">
-                      {item.status}
-                    </span>
-                  </div>
-                  <p className="text-sm text-ink/65">{item.blurb}</p>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-5 flex flex-wrap gap-2">
-              <Link
-                href="/"
-                className="rounded-md bg-veto px-4 py-2 text-xs font-semibold tracking-wide text-white"
-              >
-                Scan a listing
-              </Link>
-              <Link
-                href="/lease"
-                className="rounded-md border border-ink/20 px-4 py-2 text-xs tracking-wide text-ink"
-              >
-                Open LeaseLens
-              </Link>
-            </div>
-          </section>
-        </div>
+                  {item.name}
+                </a>
+                <p className="mt-1 text-sm text-ink/60">{item.blurb}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="border-t border-ink/10 pt-10">
+          <h2 className="section-title text-2xl">Coming next</h2>
+          <p className="mt-2 mb-5 text-sm text-mute">
+            Not built yet. Saving these for after the demo.
+          </p>
+          <ul className="space-y-4">
+            {roadmap.map((item) => (
+              <li key={item.name} className="flex items-baseline justify-between gap-4">
+                <div>
+                  <p className="font-medium text-ink">{item.name}</p>
+                  <p className="text-sm text-ink/60">{item.blurb}</p>
+                </div>
+                <span className="shrink-0 text-[10px] tracking-[0.14em] text-mute uppercase">
+                  {item.status}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href="/" className="btn-primary py-2.5">
+              Scan a listing
+            </Link>
+            <Link href="/lease" className="btn-ghost py-2.5">
+              Open LeaseLens
+            </Link>
+          </div>
+        </section>
       </main>
     </div>
   );

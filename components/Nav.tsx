@@ -6,15 +6,37 @@ const links = [
   { href: "/toolkit", label: "Toolkit" },
 ];
 
-export function Nav({ active }: { active?: string }) {
+export function Nav({
+  active,
+  tone = "solid",
+}: {
+  active?: string;
+  tone?: "solid" | "hero";
+}) {
+  const hero = tone === "hero";
+
   return (
-    <header className="border-b border-ink/10 bg-paper/90 backdrop-blur sticky top-0 z-40">
+    <header
+      className={`sticky top-0 z-40 ${
+        hero
+          ? "border-b border-white/10 bg-ink/25 backdrop-blur-md"
+          : "border-b border-ink/10 bg-paper/90 backdrop-blur-md"
+      }`}
+    >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-        <Link href="/" className="group flex items-baseline gap-2">
-          <span className="font-display text-3xl tracking-tight text-ink">
+        <Link href="/" className="flex items-baseline gap-2">
+          <span
+            className={`font-display text-2xl font-extrabold tracking-tight sm:text-3xl ${
+              hero ? "text-white" : "text-ink"
+            }`}
+          >
             Veto
           </span>
-          <span className="hidden text-xs uppercase tracking-[0.2em] text-mute sm:inline">
+          <span
+            className={`hidden text-[11px] tracking-[0.18em] uppercase sm:inline ${
+              hero ? "text-white/55" : "text-mute"
+            }`}
+          >
             before you pay
           </span>
         </Link>
@@ -25,10 +47,14 @@ export function Nav({ active }: { active?: string }) {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`rounded-md px-3 py-1.5 text-sm transition ${
-                  isActive
-                    ? "bg-ink text-paper"
-                    : "text-ink/70 hover:bg-ink/5 hover:text-ink"
+                className={`rounded-sm px-3 py-1.5 text-sm transition ${
+                  hero
+                    ? isActive
+                      ? "bg-white text-ink"
+                      : "text-white/75 hover:bg-white/10 hover:text-white"
+                    : isActive
+                      ? "bg-ink text-paper"
+                      : "text-ink/65 hover:bg-ink/5 hover:text-ink"
                 }`}
               >
                 {link.label}

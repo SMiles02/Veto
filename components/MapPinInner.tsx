@@ -129,21 +129,21 @@ export function MapPinInner({
           </Marker>
         ))}
       </MapContainer>
-      <div className="flex flex-wrap gap-3 border-t border-ink/10 bg-white/80 px-3 py-2 text-[11px] text-ink/70">
+      <div className="flex flex-wrap gap-3 border-t border-ink/10 bg-paper/90 px-3 py-2 text-[11px] text-ink/70">
         <span>
-          <span className="mr-1 inline-block h-2 w-2 rounded-full bg-veto" />
+          <span className="mr-1 inline-block h-2 w-2 bg-veto" />
           This listing
         </span>
         <span>
-          <span className="mr-1 inline-block h-2 w-2 rounded-full bg-clear" />
+          <span className="mr-1 inline-block h-2 w-2 bg-clear" />
           Cheaper comps
         </span>
         <span>
-          <span className="mr-1 inline-block h-2 w-2 rounded-full bg-negotiate" />
+          <span className="mr-1 inline-block h-2 w-2 bg-negotiate" />
           Dearer comps
         </span>
         <span>
-          <span className="mr-1 inline-block h-2 w-2 rounded-full bg-ink" />
+          <span className="mr-1 inline-block h-2 w-2 bg-ink" />
           Similar
         </span>
       </div>

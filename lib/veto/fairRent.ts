@@ -96,7 +96,7 @@ function haversineM(
   return Math.round(2 * R * Math.asin(Math.sqrt(a)));
 }
 
-/** Nearby rent comps for the map — same bed count, closest first. */
+/** Nearby rent comps for the map. Same bed count, closest first. */
 export function getNearbyComps(
   listing: ListingInput,
   limit = 8

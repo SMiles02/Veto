@@ -31,7 +31,7 @@ const TRAPS: Trap[] = [
     issue: "Unrestricted landlord entry without notice undermines quiet enjoyment.",
     severity: "high",
     reply:
-      "Please change access to reasonable written notice (e.g. 24–48 hours) except true emergencies.",
+      "Please change access to reasonable written notice (e.g. 24 to 48 hours) except true emergencies.",
   },
   {
     id: "foreign-account",

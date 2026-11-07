@@ -76,7 +76,7 @@ export function ListingForm({
     setImportNote(
       warnings.length
         ? warnings[0]
-        : "Listing fields filled - review before running Veto."
+        : "Fields filled. Check them, then run Veto."
     );
   }
 
@@ -128,24 +128,25 @@ export function ListingForm({
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-5">
-      <div className="flex flex-wrap gap-2">
+    <form onSubmit={onSubmit} className="space-y-8">
+      <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2 text-sm">
+        <span className="text-mute">Try a sample</span>
         {demoListings.map((demo) => (
           <button
             key={demo.id}
             type="button"
             onClick={() => loadDemo(demo.id)}
-            className="rounded-md border border-ink/15 bg-white px-3 py-1.5 text-xs text-ink/80 transition hover:border-ink/40 hover:text-ink"
+            className="text-ink underline decoration-ink/25 underline-offset-4 transition hover:decoration-tide"
           >
             {demo.label}
           </button>
         ))}
       </div>
 
-      <div className="rounded-lg border border-ink/10 bg-paper/60 p-3 space-y-3">
+      <div className="space-y-3 border-l-2 border-tide/40 pl-4">
         <label className="block">
-          <span className="mb-1 block text-xs uppercase tracking-wider text-mute">
-            Listing URL (Daft, MyHome, Rent.ie…)
+          <span className="mb-1.5 block text-xs font-medium tracking-[0.14em] text-mute uppercase">
+            Listing URL
           </span>
           <div className="flex flex-col gap-2 sm:flex-row">
             <input
@@ -158,7 +159,7 @@ export function ListingForm({
               type="button"
               onClick={autofill}
               disabled={importing}
-              className="shrink-0 rounded-md bg-ink px-4 py-2.5 text-sm font-medium text-paper disabled:opacity-60"
+              className="btn-ink shrink-0 py-2.5"
             >
               {importing ? "Filling..." : "Autofill"}
             </button>
@@ -168,7 +169,7 @@ export function ListingForm({
         <button
           type="button"
           onClick={() => setShowPaste((v) => !v)}
-          className="text-xs text-ink/60 underline underline-offset-2 hover:text-ink"
+          className="text-xs text-ink/55 underline underline-offset-2 hover:text-ink"
         >
           {showPaste
             ? "Hide paste box"
@@ -177,8 +178,8 @@ export function ListingForm({
 
         {showPaste && (
           <label className="block">
-            <span className="mb-1 block text-xs uppercase tracking-wider text-mute">
-              Paste listing text from the page
+            <span className="mb-1.5 block text-xs font-medium tracking-[0.14em] text-mute uppercase">
+              Paste listing text
             </span>
             <textarea
               rows={5}
@@ -191,13 +192,13 @@ export function ListingForm({
         )}
 
         {importNote && (
-          <p className="text-xs leading-relaxed text-ink/65">{importNote}</p>
+          <p className="text-xs leading-relaxed text-tide">{importNote}</p>
         )}
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block sm:col-span-2">
-          <span className="mb-1 block text-xs uppercase tracking-wider text-mute">
+          <span className="mb-1.5 block text-xs font-medium tracking-[0.14em] text-mute uppercase">
             Listing title
           </span>
           <input
@@ -208,7 +209,7 @@ export function ListingForm({
           />
         </label>
         <label className="block sm:col-span-2">
-          <span className="mb-1 block text-xs uppercase tracking-wider text-mute">
+          <span className="mb-1.5 block text-xs font-medium tracking-[0.14em] text-mute uppercase">
             Address
           </span>
           <input
@@ -220,7 +221,7 @@ export function ListingForm({
           />
         </label>
         <label className="block">
-          <span className="mb-1 block text-xs uppercase tracking-wider text-mute">
+          <span className="mb-1.5 block text-xs font-medium tracking-[0.14em] text-mute uppercase">
             Area
           </span>
           <input
@@ -231,7 +232,7 @@ export function ListingForm({
           />
         </label>
         <label className="block">
-          <span className="mb-1 block text-xs uppercase tracking-wider text-mute">
+          <span className="mb-1.5 block text-xs font-medium tracking-[0.14em] text-mute uppercase">
             Monthly rent (EUR)
           </span>
           <input
@@ -246,7 +247,7 @@ export function ListingForm({
           />
         </label>
         <label className="block">
-          <span className="mb-1 block text-xs uppercase tracking-wider text-mute">
+          <span className="mb-1.5 block text-xs font-medium tracking-[0.14em] text-mute uppercase">
             Beds / rooms
           </span>
           <input
@@ -260,7 +261,7 @@ export function ListingForm({
           />
         </label>
         <label className="block">
-          <span className="mb-1 block text-xs uppercase tracking-wider text-mute">
+          <span className="mb-1.5 block text-xs font-medium tracking-[0.14em] text-mute uppercase">
             Contact channel
           </span>
           <input
@@ -271,7 +272,7 @@ export function ListingForm({
           />
         </label>
         <label className="block sm:col-span-2">
-          <span className="mb-1 block text-xs uppercase tracking-wider text-mute">
+          <span className="mb-1.5 block text-xs font-medium tracking-[0.14em] text-mute uppercase">
             Listing description
           </span>
           <textarea
@@ -285,10 +286,11 @@ export function ListingForm({
         </label>
       </div>
 
-      <div className="flex flex-wrap gap-4 text-sm text-ink/80">
+      <div className="flex flex-wrap gap-5 text-sm text-ink/75">
         <label className="flex items-center gap-2">
           <input
             type="checkbox"
+            className="accent-tide"
             checked={!!form.paymentBeforeViewing}
             onChange={(e) =>
               setForm({ ...form, paymentBeforeViewing: e.target.checked })
@@ -299,6 +301,7 @@ export function ListingForm({
         <label className="flex items-center gap-2">
           <input
             type="checkbox"
+            className="accent-tide"
             checked={form.rtbClaimed === true}
             onChange={(e) =>
               setForm({
@@ -313,11 +316,7 @@ export function ListingForm({
 
       {error && <p className="text-sm text-veto">{error}</p>}
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full rounded-md bg-veto px-6 py-3 text-sm font-semibold tracking-wide text-white transition hover:bg-veto/90 disabled:opacity-60 sm:w-auto"
-      >
+      <button type="submit" disabled={loading} className="btn-primary">
         {loading ? "Scanning..." : "Run Veto"}
       </button>
     </form>

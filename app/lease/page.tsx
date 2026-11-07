@@ -35,23 +35,22 @@ export default function LeasePage() {
   return (
     <div className="min-h-screen">
       <Nav active="/lease" />
-      <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
-        <div className="mb-8 max-w-2xl">
-          <p className="mb-2 text-sm font-medium text-veto">LeaseLens</p>
-          <h1 className="font-display text-4xl tracking-tight text-ink sm:text-5xl">
-            Catch the clause before it catches you
-          </h1>
-          <p className="mt-3 text-ink/70">
-            Upload a lease PDF or paste the text. Veto flags unfair Irish student
-            tenancy traps and drafts a reply.
+      <main className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+        <header className="mb-12 max-w-2xl">
+          <p className="font-display text-5xl font-extrabold tracking-tight text-ink sm:text-6xl">
+            LeaseLens
           </p>
-        </div>
+          <h1 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+            Find the traps in the lease
+          </h1>
+          <p className="mt-3 max-w-lg text-ink/65">
+            Paste a lease or upload a PDF. We highlight unfair clauses and draft
+            a short reply you can send.
+          </p>
+        </header>
 
-        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
-          <form
-            onSubmit={onSubmit}
-            className="space-y-4 rounded-xl border border-ink/10 bg-white/70 p-5 sm:p-6"
-          >
+        <div className="grid gap-12 lg:grid-cols-2">
+          <form onSubmit={onSubmit} className="space-y-5">
             <button
               type="button"
               onClick={() => {
@@ -59,12 +58,12 @@ export default function LeasePage() {
                 setFile(null);
                 setAnalysis(null);
               }}
-              className="rounded-md border border-ink/15 bg-white px-3 py-1.5 text-xs text-ink/80 hover:border-ink/40"
+              className="text-sm text-ink underline decoration-ink/25 underline-offset-4 hover:decoration-tide"
             >
               Load demo lease
             </button>
             <label className="block">
-              <span className="mb-1 block text-xs uppercase tracking-wider text-mute">
+              <span className="mb-1.5 block text-xs font-medium tracking-[0.14em] text-mute uppercase">
                 Paste lease text
               </span>
               <textarea
@@ -76,7 +75,7 @@ export default function LeasePage() {
               />
             </label>
             <label className="block">
-              <span className="mb-1 block text-xs uppercase tracking-wider text-mute">
+              <span className="mb-1.5 block text-xs font-medium tracking-[0.14em] text-mute uppercase">
                 Or upload PDF / TXT
               </span>
               <input
@@ -87,28 +86,27 @@ export default function LeasePage() {
               />
             </label>
             {error && <p className="text-sm text-veto">{error}</p>}
-            <button
-              type="submit"
-              disabled={loading}
-              className="rounded-md bg-ink px-5 py-2.5 text-sm font-semibold tracking-wide text-paper disabled:opacity-60"
-            >
+            <button type="submit" disabled={loading} className="btn-ink">
               {loading ? "Reading..." : "Find clause traps"}
             </button>
           </form>
 
           <section className="space-y-4">
             {!analysis ? (
-              <div className="rounded-xl border border-dashed border-ink/15 bg-white/40 p-8 text-sm text-mute">
-                Results show up here: deposits, entry rights, overseas accounts, RTB
-                dodges.
-              </div>
+              <p className="border-l-2 border-mist pl-4 text-sm text-mute">
+                Results show up here. Things like deposits, entry rights,
+                overseas accounts, and missing RTB.
+              </p>
             ) : (
               <>
-                <div className="rounded-xl border border-ink/10 bg-white/70 p-4">
-                  <p className="text-xs uppercase tracking-wider text-mute">
+                <div className="border-b border-ink/10 pb-4">
+                  <p className="text-xs font-medium tracking-[0.14em] text-mute uppercase">
                     Analysis · {analysis.source}
+                    {analysis.llmFallbackReason
+                      ? ` · ${analysis.llmFallbackReason}`
+                      : ""}
                   </p>
-                  <p className="mt-1 text-ink">{analysis.summary}</p>
+                  <p className="mt-2 text-ink">{analysis.summary}</p>
                 </div>
                 <div className="space-y-3">
                   {analysis.clauses.map((clause, i) => (

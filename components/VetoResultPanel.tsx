@@ -19,42 +19,53 @@ export function VetoResultPanel({
   onUpdate: (next: VetoResult, nextListing: ListingInput) => void;
 }) {
   return (
-    <section className="space-y-8">
-      <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
+    <section className="space-y-10 animate-rise">
+      <div className="flex flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <p className="mb-2 text-xs uppercase tracking-[0.2em] text-mute">
-            Decision for {listing.address}
+          <p className="mb-5 text-xs font-medium tracking-[0.2em] text-mute uppercase">
+            Decision · {listing.address}
           </p>
-          <ScoreStamp
-            decision={result.decision}
-            stampLabel={result.stampLabel}
-          />
-          <p className="mt-4 max-w-xl text-ink/75">{result.summary}</p>
-          <p className="mt-2 max-w-xl text-xs text-mute">
-            Scores are indicative, not 100% accurate — always view in person
-            before paying.
+          <div className="py-2">
+            <ScoreStamp
+              key={`${result.decision}-${result.stampLabel}`}
+              decision={result.decision}
+              stampLabel={result.stampLabel}
+            />
+          </div>
+          <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink/75">
+            {result.summary}
           </p>
-        </div>
-        <div className="rounded-lg border border-ink/10 bg-white/70 px-4 py-3 text-sm">
-          <p className="text-mute">Scam risk</p>
-          <p className="font-display text-3xl text-ink">{result.scamScore}/100</p>
-          <p className="mt-2 text-mute">Fair rent</p>
-          <p className="text-ink">
-            {result.fairRent.percentDiff > 0 ? "+" : ""}
-            {result.fairRent.percentDiff}% vs €{result.fairRent.median} median
+          <p className="mt-3 max-w-xl text-xs text-mute">
+            This isn&apos;t perfect. Always view in person before you pay.
           </p>
         </div>
+        <dl className="grid min-w-[11rem] grid-cols-2 gap-x-8 gap-y-3 border-t border-ink/10 pt-4 text-sm sm:border-t-0 sm:border-l sm:pt-0 sm:pl-8">
+          <div>
+            <dt className="text-mute">Scam risk</dt>
+            <dd className="font-display text-3xl font-semibold text-ink">
+              {result.scamScore}
+              <span className="text-base text-mute">/100</span>
+            </dd>
+          </div>
+          <div>
+            <dt className="text-mute">Fair rent</dt>
+            <dd className="text-ink">
+              {result.fairRent.percentDiff > 0 ? "+" : ""}
+              {result.fairRent.percentDiff}% vs €{result.fairRent.median}
+            </dd>
+          </div>
+        </dl>
       </div>
 
       <RtbVerifyPanel listing={listing} result={result} onUpdate={onUpdate} />
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-10 lg:grid-cols-2">
         <div>
-          <h2 className="mb-3 font-display text-2xl text-ink">Why</h2>
+          <h2 className="section-title mb-4 text-2xl">Why</h2>
           <ReasonList reasons={result.reasons} />
         </div>
         <div className="space-y-4">
-          <h2 className="font-display text-2xl text-ink">Nearby rents</h2>
+          <h2 className="section-title text-2xl">Nearby rents</h2>
           {result.area ? (
             <>
               <MapPin
@@ -62,18 +73,17 @@ export function VetoResultPanel({
                 comps={result.nearbyComps || []}
                 listingRent={result.listingRent ?? listing.rent}
               />
-              <div className="rounded-lg border border-ink/10 bg-white/70 p-4 text-sm">
+              <div className="border-t border-ink/10 pt-4 text-sm">
                 <p className="font-medium text-ink">
                   {result.area.neighbourhood} · {result.area.commuteMinutesToUcc}{" "}
                   min to UCC
                 </p>
                 <p className="mt-1 text-mute">
-                  Showing {(result.nearbyComps || []).length} similar{" "}
-                  {listing.beds}-bed comps near this pin (median €
-                  {result.fairRent.median})
+                  {(result.nearbyComps || []).length} similar {listing.beds}-bed
+                  comps near this pin (median €{result.fairRent.median})
                 </p>
                 {result.area.planning[0] && (
-                  <p className="mt-3 text-ink/80">
+                  <p className="mt-3 text-ink/75">
                     Nearby planning: {result.area.planning[0].title} (
                     {result.area.planning[0].status})
                   </p>
@@ -86,18 +96,11 @@ export function VetoResultPanel({
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-3">
-        <button
-          type="button"
-          onClick={onReset}
-          className="rounded-md border border-ink/20 px-4 py-2 text-sm text-ink hover:bg-ink/5"
-        >
+      <div className="flex flex-wrap gap-3 border-t border-ink/10 pt-6">
+        <button type="button" onClick={onReset} className="btn-ghost py-2.5">
           Scan another
         </button>
-        <Link
-          href="/lease"
-          className="rounded-md bg-ink px-4 py-2 text-sm text-paper hover:bg-ink/90"
-        >
+        <Link href="/lease" className="btn-ink py-2.5">
           Check the lease next
         </Link>
       </div>

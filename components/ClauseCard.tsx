@@ -4,9 +4,9 @@ import type { LeaseClause } from "@/lib/veto/types";
 import { useState } from "react";
 
 const severityStyles = {
-  high: "border-veto/40 bg-veto/5",
-  medium: "border-negotiate/40 bg-negotiate/5",
-  low: "border-clear/40 bg-clear/5",
+  high: "border-l-veto",
+  medium: "border-l-negotiate",
+  low: "border-l-tide",
 };
 
 export function ClauseCard({ clause }: { clause: LeaseClause }) {
@@ -20,25 +20,21 @@ export function ClauseCard({ clause }: { clause: LeaseClause }) {
 
   return (
     <article
-      className={`rounded-lg border p-4 ${severityStyles[clause.severity]}`}
+      className={`border-l-4 border-y border-r border-ink/10 bg-paper/80 p-4 ${severityStyles[clause.severity]}`}
     >
-      <p className="mb-2 text-[10px] uppercase tracking-[0.18em] text-mute">
+      <p className="mb-2 text-[10px] font-medium tracking-[0.16em] text-mute uppercase">
         {clause.severity} risk
       </p>
-      <blockquote className="mb-3 border-l-2 border-ink/20 pl-3 font-display text-sm italic text-ink/80">
-        “{clause.quote}”
+      <blockquote className="mb-3 border-l border-ink/15 pl-3 text-sm text-ink/80 italic">
+        &ldquo;{clause.quote}&rdquo;
       </blockquote>
-      <p className="mb-3 text-sm text-ink/80">{clause.issue}</p>
-      <div className="rounded-md bg-white/80 p-3">
-        <p className="mb-2 text-[10px] uppercase tracking-wider text-mute">
+      <p className="mb-3 text-sm text-ink/75">{clause.issue}</p>
+      <div className="border-t border-ink/10 pt-3">
+        <p className="mb-2 text-[10px] font-medium tracking-[0.14em] text-mute uppercase">
           Suggested reply
         </p>
         <p className="mb-3 text-sm text-ink">{clause.reply}</p>
-        <button
-          type="button"
-          onClick={copyReply}
-          className="rounded-md bg-ink px-3 py-1.5 text-xs text-paper transition hover:bg-ink/85"
-        >
+        <button type="button" onClick={copyReply} className="btn-ink px-3 py-1.5 text-xs">
           {copied ? "Copied" : "Copy reply"}
         </button>
       </div>
