@@ -106,8 +106,13 @@ export function analyzeLeaseWithRules(text: string): LeaseAnalysis {
 }
 
 export async function analyzeLease(text: string): Promise<LeaseAnalysis> {
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) return analyzeLeaseWithRules(text);
+  const apiKey = process.env.OPENAI_API_KEY?.trim();
+  if (!apiKey) {
+    return {
+      ...analyzeLeaseWithRules(text),
+      llmFallbackReason: "OPENAI_API_KEY missing in runtime env",
+    };
+  }
 
   try {
     const res = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -117,7 +122,7 @@ export async function analyzeLease(text: string): Promise<LeaseAnalysis> {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: process.env.OPENAI_MODEL ?? "gpt-4o-mini",
+        model: process.env.OPENAI_MODEL?.trim() || "gpt-4o-mini",
         temperature: 0.2,
         response_format: { type: "json_object" },
         messages: [
@@ -134,14 +139,34 @@ export async function analyzeLease(text: string): Promise<LeaseAnalysis> {
       }),
     });
 
-    if (!res.ok) return analyzeLeaseWithRules(text);
+    if (!res.ok) {
+      const body = await res.text();
+      return {
+        ...analyzeLeaseWithRules(text),
+        llmFallbackReason: `OpenAI HTTP ${res.status}: ${body.slice(0, 180)}`,
+      };
+    }
     const data = await res.json();
     const content = data.choices?.[0]?.message?.content;
-    if (!content) return analyzeLeaseWithRules(text);
+    if (!content) {
+      return {
+        ...analyzeLeaseWithRules(text),
+        llmFallbackReason: "OpenAI returned empty content",
+      };
+    }
     const parsed = JSON.parse(content) as LeaseAnalysis;
-    if (!parsed.clauses?.length) return analyzeLeaseWithRules(text);
+    if (!parsed.clauses?.length) {
+      return {
+        ...analyzeLeaseWithRules(text),
+        llmFallbackReason: "OpenAI JSON had no clauses",
+      };
+    }
     return { ...parsed, source: "llm" };
-  } catch {
-    return analyzeLeaseWithRules(text);
+  } catch (error) {
+    return {
+      ...analyzeLeaseWithRules(text),
+      llmFallbackReason:
+        error instanceof Error ? error.message : "OpenAI request failed",
+    };
   }
 }

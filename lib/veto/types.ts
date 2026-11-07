@@ -74,4 +74,5 @@ export interface LeaseAnalysis {
   clauses: LeaseClause[];
   summary: string;
   source: "llm" | "rules";
+  llmFallbackReason?: string;
 }
