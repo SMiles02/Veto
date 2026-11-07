@@ -1,14 +1,14 @@
 {
-  "51.8925,-8.4912": {
+  "51.89185,-8.4912": {
     "address": "College Road, Cork",
-    "lat": 51.8925,
+    "lat": 51.89185,
     "lng": -8.4912,
     "commuteMinutesToUcc": 6,
     "neighbourhood": "College Road / UCC fringe",
     "planning": [
       {
         "id": "24/3841",
-        "title": "Student accommodation — 40 bed spaces",
+        "title": "Student accommodation, 40 bed spaces",
         "summary": "Proposed 40-bed student scheme ~120m away. May increase local foot traffic and construction disruption.",
         "distanceM": 120,
         "status": "Further Information"
@@ -23,16 +23,16 @@
     ],
     "notes": ["High student demand corridor", "Walkable to UCC main campus"]
   },
-  "51.8928,-8.4915": {
+  "51.8919,-8.4925": {
     "address": "18 College Road, Cork",
-    "lat": 51.8928,
-    "lng": -8.4915,
+    "lat": 51.8919,
+    "lng": -8.4925,
     "commuteMinutesToUcc": 7,
     "neighbourhood": "College Road",
     "planning": [
       {
         "id": "24/3841",
-        "title": "Student accommodation — 40 bed spaces",
+        "title": "Student accommodation, 40 bed spaces",
         "summary": "Large student scheme nearby. Expect more competition for street parking and late-night noise risk.",
         "distanceM": 95,
         "status": "Further Information"
@@ -40,10 +40,10 @@
     ],
     "notes": ["Premium UCC-adjacent rents", "Strong bus + walk access"]
   },
-  "51.9012,-8.505": {
+  "51.89947,-8.49105": {
     "address": "Sunday's Well Road, Cork",
-    "lat": 51.9012,
-    "lng": -8.505,
+    "lat": 51.89947,
+    "lng": -8.49105,
     "commuteMinutesToUcc": 14,
     "neighbourhood": "Sunday's Well",
     "planning": [
