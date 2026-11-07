@@ -35,3 +35,4 @@ next-env.d.ts
 PITCH.md
 DEVPOST.md
 *.local.md
+.vercel

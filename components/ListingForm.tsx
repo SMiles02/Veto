@@ -22,8 +22,12 @@ export function ListingForm({
   onResult: (result: VetoResult, listing: ListingInput) => void;
 }) {
   const [form, setForm] = useState<ListingInput>(empty);
+  const [pasteText, setPasteText] = useState("");
+  const [showPaste, setShowPaste] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [importing, setImporting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [importNote, setImportNote] = useState<string | null>(null);
 
   function loadDemo(id: string) {
     const demo = demoListings.find((d) => d.id === id);
@@ -43,6 +47,64 @@ export function ListingForm({
       paymentBeforeViewing: demo.paymentBeforeViewing,
     });
     setError(null);
+    setImportNote(null);
+  }
+
+  function applyImport(listing: Partial<ListingInput>, warnings: string[]) {
+    setForm((prev) => ({
+      ...prev,
+      ...listing,
+      title: listing.title ?? prev.title,
+      address: listing.address ?? prev.address,
+      area: listing.area ?? prev.area,
+      rent: listing.rent ?? prev.rent,
+      beds: listing.beds ?? prev.beds,
+      description: listing.description ?? prev.description,
+      contact: listing.contact ?? prev.contact,
+      url: listing.url ?? prev.url,
+      lat: listing.lat ?? prev.lat,
+      lng: listing.lng ?? prev.lng,
+      rtbClaimed: listing.rtbClaimed ?? prev.rtbClaimed,
+      paymentBeforeViewing:
+        listing.paymentBeforeViewing ?? prev.paymentBeforeViewing,
+    }));
+
+    const needsPaste =
+      warnings.some((w) => /blocked|paste/i.test(w)) || !listing.rent;
+    if (needsPaste) setShowPaste(true);
+
+    setImportNote(
+      warnings.length
+        ? warnings[0]
+        : "Listing fields filled - review before running Veto."
+    );
+  }
+
+  async function autofill() {
+    if (!form.url?.trim() && !pasteText.trim()) {
+      setError("Add a Daft/MyHome/Rent.ie URL or paste listing text first");
+      return;
+    }
+    setImporting(true);
+    setError(null);
+    setImportNote(null);
+    try {
+      const res = await fetch("/api/listing/import", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          url: form.url?.trim() || undefined,
+          text: pasteText.trim() || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Autofill failed");
+      applyImport(data.listing || {}, data.warnings || []);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Autofill failed");
+    } finally {
+      setImporting(false);
+    }
   }
 
   async function onSubmit(e: FormEvent) {
@@ -78,6 +140,59 @@ export function ListingForm({
             {demo.label}
           </button>
         ))}
+      </div>
+
+      <div className="rounded-lg border border-ink/10 bg-paper/60 p-3 space-y-3">
+        <label className="block">
+          <span className="mb-1 block text-xs uppercase tracking-wider text-mute">
+            Listing URL (Daft, MyHome, Rent.ie…)
+          </span>
+          <div className="flex flex-col gap-2 sm:flex-row">
+            <input
+              className="field"
+              value={form.url}
+              onChange={(e) => setForm({ ...form, url: e.target.value })}
+              placeholder="https://www.daft.ie/share/..."
+            />
+            <button
+              type="button"
+              onClick={autofill}
+              disabled={importing}
+              className="shrink-0 rounded-md bg-ink px-4 py-2.5 text-sm font-medium text-paper disabled:opacity-60"
+            >
+              {importing ? "Filling..." : "Autofill"}
+            </button>
+          </div>
+        </label>
+
+        <button
+          type="button"
+          onClick={() => setShowPaste((v) => !v)}
+          className="text-xs text-ink/60 underline underline-offset-2 hover:text-ink"
+        >
+          {showPaste
+            ? "Hide paste box"
+            : "Daft blocked the fetch? Paste listing text"}
+        </button>
+
+        {showPaste && (
+          <label className="block">
+            <span className="mb-1 block text-xs uppercase tracking-wider text-mute">
+              Paste listing text from the page
+            </span>
+            <textarea
+              rows={5}
+              className="field resize-y text-xs"
+              value={pasteText}
+              onChange={(e) => setPasteText(e.target.value)}
+              placeholder="Copy title, price, and description from Daft and paste here, then Autofill again..."
+            />
+          </label>
+        )}
+
+        {importNote && (
+          <p className="text-xs leading-relaxed text-ink/65">{importNote}</p>
+        )}
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
@@ -153,17 +268,6 @@ export function ListingForm({
             value={form.contact}
             onChange={(e) => setForm({ ...form, contact: e.target.value })}
             placeholder="phone + email"
-          />
-        </label>
-        <label className="block sm:col-span-2">
-          <span className="mb-1 block text-xs uppercase tracking-wider text-mute">
-            Listing URL (optional)
-          </span>
-          <input
-            className="field"
-            value={form.url}
-            onChange={(e) => setForm({ ...form, url: e.target.value })}
-            placeholder="https://..."
           />
         </label>
         <label className="block sm:col-span-2">
