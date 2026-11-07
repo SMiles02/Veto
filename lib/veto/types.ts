@@ -34,6 +34,17 @@ export interface FairRentResult {
   verdict: "underpriced" | "fair" | "overpriced";
 }
 
+export interface NearbyComp {
+  id: string;
+  address: string;
+  area: string;
+  rent: number;
+  beds: number;
+  lat: number;
+  lng: number;
+  distanceM: number;
+}
+
 export interface PlanningItem {
   id: string;
   title: string;
@@ -60,6 +71,8 @@ export interface VetoResult {
   fairRent: FairRentResult;
   reasons: ScoreReason[];
   area?: AreaIntel;
+  nearbyComps: NearbyComp[];
+  listingRent: number;
   summary: string;
 }
 

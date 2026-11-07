@@ -1,7 +1,7 @@
 import comps from "@/data/comps.json";
-import type { FairRentResult, ListingInput } from "./types";
+import type { FairRentResult, ListingInput, NearbyComp } from "./types";
 
-function normalizeArea(area?: string, address?: string): string {
+export function normalizeArea(area?: string, address?: string): string {
   const source = `${area ?? ""} ${address ?? ""}`.toLowerCase();
   if (source.includes("college") || source.includes("donovan") || source.includes("connaught")) {
     return "College Road";
@@ -78,4 +78,55 @@ export function assessFairRent(listing: ListingInput): FairRentResult {
     area: usedLocal ? area : `${area} (Cork-wide fallback)`,
     verdict,
   };
+}
+
+function haversineM(
+  lat1: number,
+  lng1: number,
+  lat2: number,
+  lng2: number
+): number {
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const R = 6371000;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return Math.round(2 * R * Math.asin(Math.sqrt(a)));
+}
+
+/** Nearby rent comps for the map — same bed count, closest first. */
+export function getNearbyComps(
+  listing: ListingInput,
+  limit = 8
+): NearbyComp[] {
+  const lat = listing.lat;
+  const lng = listing.lng;
+  const area = normalizeArea(listing.area, listing.address);
+  const sameBeds = comps.filter((c) => c.beds === (listing.beds || 1));
+
+  const withDistance = sameBeds.map((c) => {
+    const distanceM =
+      lat != null && lng != null
+        ? haversineM(lat, lng, c.lat, c.lng)
+        : c.area.toLowerCase() === area.toLowerCase()
+          ? 200
+          : 5000;
+    return {
+      id: c.id,
+      address: c.address,
+      area: c.area,
+      rent: c.rent,
+      beds: c.beds,
+      lat: c.lat,
+      lng: c.lng,
+      distanceM,
+    };
+  });
+
+  return withDistance
+    .sort((a, b) => a.distanceM - b.distanceM)
+    .filter((c) => c.distanceM <= 3500 || c.area.toLowerCase() === area.toLowerCase())
+    .slice(0, limit);
 }

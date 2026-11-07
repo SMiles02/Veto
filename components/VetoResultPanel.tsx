@@ -45,20 +45,23 @@ export function VetoResultPanel({
           <ReasonList reasons={result.reasons} />
         </div>
         <div className="space-y-4">
-          <h2 className="font-display text-2xl text-ink">Area intel</h2>
+          <h2 className="font-display text-2xl text-ink">Nearby rents</h2>
           {result.area ? (
             <>
-              <MapPin area={result.area} />
+              <MapPin
+                area={result.area}
+                comps={result.nearbyComps || []}
+                listingRent={result.listingRent ?? listing.rent}
+              />
               <div className="rounded-lg border border-ink/10 bg-white/70 p-4 text-sm">
                 <p className="font-medium text-ink">
                   {result.area.neighbourhood} · {result.area.commuteMinutesToUcc}{" "}
                   min to UCC
                 </p>
                 <p className="mt-1 text-mute">
-                  Source:{" "}
-                  {result.area.source === "live"
-                    ? "cached pin + Cork open data"
-                    : "cached Cork intel"}
+                  Showing {(result.nearbyComps || []).length} similar{" "}
+                  {listing.beds}-bed comps near this pin (median €
+                  {result.fairRent.median})
                 </p>
                 {result.area.planning[0] && (
                   <p className="mt-3 text-ink/80">

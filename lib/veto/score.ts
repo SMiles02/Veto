@@ -1,4 +1,4 @@
-import { assessFairRent } from "./fairRent";
+import { assessFairRent, getNearbyComps } from "./fairRent";
 import { scoreScamRisk } from "./scamRules";
 import type {
   AreaIntel,
@@ -145,6 +145,8 @@ export function scoreListing(
     fairRent,
     reasons,
     area,
+    nearbyComps: getNearbyComps(listing),
+    listingRent: listing.rent,
     summary,
   };
 }

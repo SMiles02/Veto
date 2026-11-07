@@ -1,12 +1,16 @@
 "use client";
 
-import type { AreaIntel } from "@/lib/veto/types";
+import type { AreaIntel, NearbyComp } from "@/lib/veto/types";
 import { ComponentType, useEffect, useState } from "react";
 
-export function MapPin({ area }: { area: AreaIntel }) {
-  const [MapView, setMapView] = useState<ComponentType<{
-    area: AreaIntel;
-  }> | null>(null);
+type MapProps = {
+  area: AreaIntel;
+  comps: NearbyComp[];
+  listingRent: number;
+};
+
+export function MapPin({ area, comps, listingRent }: MapProps) {
+  const [MapView, setMapView] = useState<ComponentType<MapProps> | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -20,11 +24,11 @@ export function MapPin({ area }: { area: AreaIntel }) {
 
   if (!MapView) {
     return (
-      <div className="flex h-56 items-center justify-center rounded-lg border border-ink/10 bg-ink/5 text-sm text-mute">
+      <div className="flex h-64 items-center justify-center rounded-lg border border-ink/10 bg-ink/5 text-sm text-mute">
         Loading map...
       </div>
     );
   }
 
-  return <MapView area={area} />;
+  return <MapView area={area} comps={comps} listingRent={listingRent} />;
 }
