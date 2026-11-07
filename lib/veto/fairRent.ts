@@ -122,6 +122,10 @@ export function getNearbyComps(
       lat: c.lat,
       lng: c.lng,
       distanceM,
+      source: c.source,
+      sourceUrl: c.sourceUrl,
+      listedAs: c.listedAs,
+      rentBasis: c.rentBasis,
     };
   });
 

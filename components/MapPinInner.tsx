@@ -114,6 +114,17 @@ export function MapPinInner({
               {comp.address}
               <br />
               {comp.area} · ~{comp.distanceM}m away
+              <br />
+              Source: {comp.source}
+              {comp.listedAs ? ` (${comp.listedAs})` : ""}
+              {comp.sourceUrl ? (
+                <>
+                  <br />
+                  <a href={comp.sourceUrl} target="_blank" rel="noreferrer">
+                    Open listing
+                  </a>
+                </>
+              ) : null}
             </Popup>
           </Marker>
         ))}

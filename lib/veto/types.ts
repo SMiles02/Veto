@@ -43,6 +43,10 @@ export interface NearbyComp {
   lat: number;
   lng: number;
   distanceM: number;
+  source: string;
+  sourceUrl?: string;
+  listedAs?: string;
+  rentBasis?: string;
 }
 
 export interface PlanningItem {
