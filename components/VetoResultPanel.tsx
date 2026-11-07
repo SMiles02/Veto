@@ -37,7 +37,7 @@ export function VetoResultPanel({
             {result.summary}
           </p>
           <p className="mt-3 max-w-xl text-xs text-mute">
-            This isn&apos;t perfect. Always view in person before you pay.
+            This isn&apos;t a green light. Always view in person before you pay.
           </p>
         </div>
         <dl className="grid min-w-[11rem] grid-cols-2 gap-x-8 gap-y-3 border-t border-ink/10 pt-4 text-sm sm:border-t-0 sm:border-l sm:pt-0 sm:pl-8">

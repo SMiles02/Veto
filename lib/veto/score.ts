@@ -34,7 +34,7 @@ function decide(
     return { decision: "NEGOTIATE", stampLabel: "NEGOTIATE" };
   }
 
-  return { decision: "PROCEED", stampLabel: "CLEAR" };
+  return { decision: "PROCEED", stampLabel: "NO MAJOR FLAGS" };
 }
 
 function floodReasons(area?: AreaIntel): ScoreReason[] {
@@ -210,7 +210,7 @@ export function scoreListing(
       ? "Don't send money. This listing fails basic Cork scam checks."
       : decision === "NEGOTIATE"
         ? "Not a hard no, but don't accept these terms as they stand."
-        : "Nothing major jumped out. Still view in person and get a written lease before you pay.";
+        : "No major flags from this scan. Still view before you pay, and get a written lease.";
 
   return {
     decision,

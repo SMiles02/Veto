@@ -1,6 +1,6 @@
 # Veto
 
-**A Cork student housing co-pilot. Walk away, negotiate, or proceed before you send the deposit.**
+**A Cork student housing co-pilot. Walk away, negotiate, or keep looking carefully before you send the deposit.**
 
 [![Corkathon 2026](https://img.shields.io/badge/Corkathon-2026-0f766e)](https://corkathon.devpost.com/)
 [![Live demo](https://img.shields.io/badge/demo-veto--smoky.vercel.app-b91c1c)](https://veto-smoky.vercel.app)
@@ -26,7 +26,7 @@ We wanted a tool that feels like a careful friend on campus, not a black-box sco
 | --- | --- |
 | **VETO** | Walk away. Basic scam checks failed. |
 | **NEGOTIATE** | Not a hard no. Don't accept these terms as they stand. |
-| **CLEAR** | Nothing major jumped out. Still view before you pay. |
+| **NO MAJOR FLAGS** | No major flags from this scan. Still view before you pay. |
 
 Behind that stamp we combine scam heuristics, fair-rent comps from real ads, neighbourhood notes, OPW flood extents, guided RTB verification, and a lease checker with a student toolkit of rights links.
 
@@ -35,7 +35,7 @@ We tried to stay honest about what we can and cannot know. Planning notes are cu
 ## Key features
 
 ### Listing scan
-- Paste a listing (or load a demo) and get a **VETO / NEGOTIATE / CLEAR** decision with plain-English reasons
+- Paste a listing (or load a demo) and get a **VETO / NEGOTIATE / NO MAJOR FLAGS** decision with plain-English reasons
 - Rule-based **scam signals**: payment before viewing, abroad landlord patterns, underpriced bait, thin contact details, and more
 - Optional listing URL autofill where the importer can help
 
@@ -51,6 +51,7 @@ We tried to stay honest about what we can and cannot know. Planning notes are cu
 - Nearby recorded flood events within 500m
 - Toggleable map overlay + link back to the official map
 - Soft nudge into **NEGOTIATE** when modelled risk is significant or high
+- On significant/high risk: concrete asks (floor level, insurance, landlord flood history)
 
 ### RTB Check the Register
 - Deep-link into the official RTB tool
@@ -74,7 +75,7 @@ We tried to stay honest about what we can and cannot know. Planning notes are cu
 3. Area intel adds commute, curated planning notes, and an OPW flood check for the pin
 4. You optionally verify the address on RTB Check the Register and report what you saw
 5. Read the stamp, the reasons, the map, and the flood panel
-6. If you proceed, use LeaseLens and the toolkit before you pay
+6. If nothing major flags, use LeaseLens and the toolkit before you pay
 
 ## Quick start
 
@@ -103,7 +104,7 @@ Lease checking still works without an API key via built-in Irish lease rules.
 | --- | --- | --- |
 | `data/comps.json` | 62 ads | Fair rent + map comps (sourced) |
 | `data/areaCache.json` | 15 neighbourhoods | Curated notes / planning context |
-| `data/demoListings.json` | 7 demos | Scam, negotiate, flood, outer areas |
+| `data/demoListings.json` | 4 demos | Walk away, negotiate, Blackpool flood, no major flags |
 | Live OPW WMS/WFS | per pin | Flood extents + past events |
 
 Neighbourhoods with comps today: College Road, Western Road, Magazine Road, Sunday's Well, Gillabbey, Glasheen, Wilton, Bishopstown, Blackpool, Ballincollig, Douglas, Blackrock, Mahon, Ballyphehane, Turners Cross, City Centre.
@@ -140,7 +141,7 @@ Neighbourhoods with comps today: College Road, Western Road, Magazine Road, Sund
 Shipped in a day at Corkathon (UCC Computer Science Society, with IGNITE UCC and Frame): from a student housing pain point to a live demo with sourced comps, flood checks, RTB guidance, lease review, and a toolkit.
 
 ### Completed in the hackathon build
-- [x] VETO / NEGOTIATE / CLEAR decision stamp
+- [x] VETO / NEGOTIATE / NO MAJOR FLAGS decision stamp
 - [x] Scam heuristics tuned for student ads
 - [x] Fair rent from sourced Cork comps
 - [x] Neighbourhood map with nearby rents

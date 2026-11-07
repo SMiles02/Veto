@@ -39,7 +39,11 @@ export function ScoreStamp({
       aria-label={`Decision ${stampLabel}`}
     >
       <span
-        className={`font-display text-5xl font-extrabold tracking-[0.12em] uppercase sm:text-6xl ${style.text}`}
+        className={`font-display font-extrabold uppercase ${style.text} ${
+          stampLabel.length > 10
+            ? "max-w-[14ch] text-center text-3xl leading-tight tracking-[0.08em] sm:text-4xl"
+            : "text-5xl tracking-[0.12em] sm:text-6xl"
+        }`}
       >
         {stampLabel}
       </span>

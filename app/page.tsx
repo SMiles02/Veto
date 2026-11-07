@@ -76,7 +76,7 @@ export default function HomePage() {
                 style={{ animationDelay: "280ms" }}
               >
                 Scan a Cork student listing. See if you should walk, negotiate,
-                or go ahead.
+                or keep looking carefully.
               </p>
               <div
                 className="mt-5 flex animate-hero-in flex-wrap items-center gap-3"

@@ -75,6 +75,37 @@ export function FloodRiskPanel({ flood }: { flood: FloodRisk }) {
         {flood.summary}
       </p>
 
+      {(flood.level === "high" || flood.level === "significant") && (
+        <div className="mt-5 border-t border-ink/10 pt-4">
+          <p className="mb-2 text-[11px] tracking-[0.14em] text-mute uppercase">
+            Before you sign
+          </p>
+          <ul className="space-y-2 text-sm text-ink/80">
+            <li className="flex gap-2">
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 bg-veto" />
+              <span>
+                Confirm which floor the room is on. Ground floor and basements
+                take floodwater first.
+              </span>
+            </li>
+            <li className="flex gap-2">
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 bg-veto" />
+              <span>
+                Ask what contents insurance covers, and whether the landlord has
+                flood cover on the building.
+              </span>
+            </li>
+            <li className="flex gap-2">
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 bg-veto" />
+              <span>
+                Ask the landlord (and neighbours if you can) whether this
+                address has flooded before, and what happened.
+              </span>
+            </li>
+          </ul>
+        </div>
+      )}
+
       <div className="mt-5 grid gap-6 sm:grid-cols-2">
         <div>
           <p className="mb-2 text-[11px] tracking-[0.14em] text-mute uppercase">

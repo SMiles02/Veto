@@ -247,6 +247,18 @@ function detailLines(
     );
   }
 
+  if (level === "high" || level === "significant") {
+    lines.push(
+      "Before you sign: confirm which floor the room is on (ground floor and basements take the hit first)."
+    );
+    lines.push(
+      "Ask what contents insurance covers, and whether the landlord has cover for flood damage."
+    );
+    lines.push(
+      "Ask the landlord (and neighbours if you can) whether this address has flooded before, and what happened."
+    );
+  }
+
   if (level === "none" || level === "low") {
     lines.push(
       "Surface water / blocked drains are not fully covered by these CFRAM extents."
