@@ -97,11 +97,11 @@ function metaContent(html: string, property: string): string | undefined {
 }
 
 function extractJsonLd(html: string): Array<Record<string, unknown>> {
-  const blocks = [
-    ...html.matchAll(
+  const blocks = Array.from(
+    html.matchAll(
       /<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi
-    ),
-  ];
+    )
+  );
   const out: Array<Record<string, unknown>> = [];
   for (const block of blocks) {
     try {
