@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(215, 38, 61, 0.08), transparent 36%),
+    radial-gradient(circle at 80% 0%, rgba(229, 161, 0, 0.08), transparent 28%),
+    linear-gradient(180deg, #f7f4ef 0%, #efe8de 100%);
+  color: #0a0a0a;
+}
+
+@layer components {
+  .field {
+    @apply w-full rounded-lg border border-ink/15 bg-white/80 px-3 py-2.5 text-sm text-ink outline-none transition placeholder:text-ink/35 focus:border-ink/40 focus:ring-2 focus:ring-ink/10;
+  }
+}
+
+.leaflet-container {
+  font: inherit;
+}

@@ -1,0 +1,102 @@
+[
+  {
+    "id": "comp-1",
+    "area": "College Road",
+    "address": "12 College Road, Cork",
+    "rent": 750,
+    "beds": 1,
+    "type": "room",
+    "lat": 51.8925,
+    "lng": -8.4912
+  },
+  {
+    "id": "comp-2",
+    "area": "College Road",
+    "address": "28 College Road, Cork",
+    "rent": 820,
+    "beds": 1,
+    "type": "room",
+    "lat": 51.8931,
+    "lng": -8.492
+  },
+  {
+    "id": "comp-3",
+    "area": "Western Road",
+    "address": "45 Western Road, Cork",
+    "rent": 900,
+    "beds": 1,
+    "type": "room",
+    "lat": 51.8952,
+    "lng": -8.4985
+  },
+  {
+    "id": "comp-4",
+    "area": "Western Road",
+    "address": "2-bed flat, Western Road",
+    "rent": 1600,
+    "beds": 2,
+    "type": "flat",
+    "lat": 51.8958,
+    "lng": -8.4992
+  },
+  {
+    "id": "comp-5",
+    "area": "Sunday's Well",
+    "address": "Sunday's Well Road room",
+    "rent": 700,
+    "beds": 1,
+    "type": "room",
+    "lat": 51.9012,
+    "lng": -8.505
+  },
+  {
+    "id": "comp-6",
+    "area": "City Centre",
+    "address": "South Mall studio",
+    "rent": 1100,
+    "beds": 1,
+    "type": "studio",
+    "lat": 51.897,
+    "lng": -8.475
+  },
+  {
+    "id": "comp-7",
+    "area": "Blackpool",
+    "address": "Blackpool village room",
+    "rent": 650,
+    "beds": 1,
+    "type": "room",
+    "lat": 51.9115,
+    "lng": -8.47
+  },
+  {
+    "id": "comp-8",
+    "area": "Ballincollig",
+    "address": "Ballincollig town room",
+    "rent": 600,
+    "beds": 1,
+    "type": "room",
+    "lat": 51.889,
+    "lng": -8.588
+  },
+  {
+    "id": "comp-9",
+    "area": "College Road",
+    "address": "Shared house near UCC",
+    "rent": 680,
+    "beds": 1,
+    "type": "room",
+    "lat": 51.892,
+    "lng": -8.49
+  },
+  {
+    "id": "comp-10",
+    "area": "City Centre",
+    "address": "Patrick Street nearby room",
+    "rent": 850,
+    "beds": 1,
+    "type": "room",
+    "lat": 51.8985,
+    "lng": -8.4725
+  }
+]
