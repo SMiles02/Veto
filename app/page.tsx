@@ -4,27 +4,49 @@ import { ListingForm } from "@/components/ListingForm";
 import { Nav } from "@/components/Nav";
 import { VetoResultPanel } from "@/components/VetoResultPanel";
 import type { ListingInput, VetoResult } from "@/lib/veto/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function HomePage() {
   const [result, setResult] = useState<VetoResult | null>(null);
   const [listing, setListing] = useState<ListingInput | null>(null);
+  const [overHero, setOverHero] = useState(true);
   const showingResult = Boolean(result && listing);
+
+  useEffect(() => {
+    if (showingResult) return;
+
+    function onScroll() {
+      // Stay in hero tone while the photo still sits behind the sticky bar.
+      setOverHero(window.scrollY < window.innerHeight * 0.72);
+    }
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [showingResult]);
 
   return (
     <div className="min-h-screen">
-      <Nav active="/" tone={showingResult ? "solid" : "hero"} />
+      <Nav
+        active="/"
+        tone={showingResult || !overHero ? "solid" : "hero"}
+      />
 
       {!showingResult ? (
         <>
-          <section className="relative isolate min-h-[100svh] overflow-hidden">
+          {/* Pull hero under the sticky nav so the photo shows through the bar. */}
+          <section className="relative isolate -mt-[4.25rem] min-h-[100svh] overflow-hidden pt-[4.25rem]">
             <div
               className="absolute inset-0 animate-drift bg-cover bg-center"
               style={{ backgroundImage: "url(/cork-hero.jpg)" }}
               aria-hidden
             />
             <div
-              className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/35 to-ink/25"
+              className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/35 to-ink/40"
               aria-hidden
             />
             <div
@@ -36,7 +58,7 @@ export default function HomePage() {
               aria-hidden
             />
 
-            <div className="relative mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-4 pb-10 pt-20 sm:px-6 sm:pb-14">
+            <div className="relative mx-auto flex min-h-[calc(100svh-4.25rem)] max-w-6xl flex-col justify-end px-4 pb-10 pt-8 sm:px-6 sm:pb-14">
               <p
                 className="animate-hero-in font-display text-5xl leading-[0.9] font-extrabold tracking-tight text-white sm:text-7xl md:text-8xl"
                 style={{ animationDelay: "80ms" }}
