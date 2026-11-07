@@ -88,6 +88,15 @@ export function VetoResultPanel({
                     {result.area.planning[0].status})
                   </p>
                 )}
+                <p className="mt-3 text-xs text-mute">
+                  Area notes:{" "}
+                  {result.area.source === "curated"
+                    ? "curated neighbourhood cache"
+                    : "computed from coordinates"}
+                  {result.area.openDataReachable
+                    ? " · Cork open data reachable (ping only)"
+                    : " · Cork open data unreachable"}
+                </p>
               </div>
             </>
           ) : (

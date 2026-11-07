@@ -34,23 +34,15 @@ function commuteFromCoords(lat: number, lng: number) {
   return Math.max(5, Math.round(km * 12));
 }
 
-async function fetchRecentPlanningTitles(): Promise<string[]> {
+/** Connectivity check only. Does not power planning distances or summaries. */
+async function pingCorkOpenData(): Promise<boolean> {
   try {
     const resourceId = "8d5bbfa9-3b0c-40ac-8630-4243bed94b2d";
-    const url = `https://data.corkcity.ie/api/3/action/datastore_search?resource_id=${resourceId}&limit=5`;
+    const url = `https://data.corkcity.ie/api/3/action/datastore_search?resource_id=${resourceId}&limit=1`;
     const res = await fetch(url, { next: { revalidate: 3600 } });
-    if (!res.ok) return [];
-    const json = (await res.json()) as {
-      result?: { records?: Array<Record<string, unknown>> };
-    };
-    return (json.result?.records ?? [])
-      .map((r) =>
-        String(r.DevelopmentDescription ?? r.Location ?? "").trim()
-      )
-      .filter(Boolean)
-      .slice(0, 3);
+    return res.ok;
   } catch {
-    return [];
+    return false;
   }
 }
 
@@ -62,19 +54,25 @@ export async function getAreaIntel(
   if (lat == null || lng == null) return undefined;
 
   const cached = cache[keyFor(lat, lng)] ?? nearestCache(lat, lng);
-  const liveTitles = await fetchRecentPlanningTitles();
+  const openDataReachable = await pingCorkOpenData();
 
   if (cached) {
-    const notes = [...cached.notes];
-    if (liveTitles.length) {
-      notes.push(`Cork open data reachable (${liveTitles.length} recent filings sampled)`);
+    const notes = [
+      ...cached.notes,
+      "Planning notes are curated for this neighbourhood, not live-matched filings.",
+    ];
+    if (openDataReachable) {
+      notes.push("Cork City open data API is reachable (connection check only).");
+    } else {
+      notes.push("Cork City open data API was not reachable for this scan.");
     }
+
     return {
       ...cached,
       address: address ?? cached.address,
       notes,
-      // Distances come from curated cache; live API is connectivity/health only
-      source: liveTitles.length ? "live" : "cache",
+      source: "curated",
+      openDataReachable,
     };
   }
 
@@ -85,9 +83,13 @@ export async function getAreaIntel(
     commuteMinutesToUcc: commuteFromCoords(lat, lng),
     neighbourhood: "Cork City",
     planning: [],
-    notes: liveTitles.length
-      ? [`Open data ok; no local planning pin for this coordinate yet`]
-      : ["No cached area pin for this coordinate"],
-    source: liveTitles.length ? "live" : "cache",
+    notes: [
+      "No curated planning notes for this pin yet. Commute is estimated from coordinates.",
+      openDataReachable
+        ? "Cork City open data API is reachable (connection check only)."
+        : "Cork City open data API was not reachable for this scan.",
+    ],
+    source: "computed",
+    openDataReachable,
   };
 }

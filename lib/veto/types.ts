@@ -74,7 +74,10 @@ export interface AreaIntel {
   neighbourhood: string;
   planning: PlanningItem[];
   notes: string[];
-  source: "live" | "cache";
+  /** Where neighbourhood planning/commute notes come from. */
+  source: "curated" | "computed";
+  /** True if data.corkcity.ie responded; does not mean planning pins are live. */
+  openDataReachable: boolean;
 }
 
 export interface VetoResult {
