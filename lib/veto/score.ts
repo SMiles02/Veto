@@ -14,25 +14,99 @@ function decide(
   area?: AreaIntel
 ): { decision: VetoDecision; stampLabel: string } {
   const majorPlanning = area?.planning.some((p) => p.distanceM <= 150) ?? false;
+  const floodLevel = area?.flood?.level;
+  const seriousFlood =
+    floodLevel === "high" || floodLevel === "significant";
 
   if (scamScore >= 45) {
     return { decision: "WALK_AWAY", stampLabel: "VETO" };
   }
 
-  if (fairRentPercent >= 12 || (fairRentPercent >= 8 && majorPlanning)) {
+  if (
+    fairRentPercent >= 12 ||
+    (fairRentPercent >= 8 && majorPlanning) ||
+    (fairRentPercent >= 6 && seriousFlood)
+  ) {
     return { decision: "NEGOTIATE", stampLabel: "NEGOTIATE" };
   }
 
-  if (scamScore >= 25) {
+  if (scamScore >= 25 || seriousFlood) {
     return { decision: "NEGOTIATE", stampLabel: "NEGOTIATE" };
   }
 
   return { decision: "PROCEED", stampLabel: "CLEAR" };
 }
 
+function floodReasons(area?: AreaIntel): ScoreReason[] {
+  const flood = area?.flood;
+  if (!flood || flood.level === "unknown") {
+    if (flood?.level === "unknown") {
+      return [
+        {
+          id: "flood-unknown",
+          label: "Flood check unavailable",
+          detail: flood.summary,
+          severity: "medium",
+          category: "area",
+        },
+      ];
+    }
+    return [];
+  }
+
+  if (flood.level === "none") {
+    return [
+      {
+        id: "flood-clear",
+        label: "No modelled flood extent at pin",
+        detail:
+          "OPW CFRAM river/coastal maps do not cover this coordinate. Still confirm on floodinfo.ie for surface water.",
+        severity: "low",
+        category: "area",
+      },
+    ];
+  }
+
+  const severity: ScoreReason["severity"] =
+    flood.level === "high"
+      ? "high"
+      : flood.level === "significant" || flood.level === "moderate"
+        ? "medium"
+        : "low";
+
+  const hitBits = [
+    ...flood.fluvial.map((h) => `river ${h.aepLabel}`),
+    ...flood.coastal.map((h) => `coastal ${h.aepLabel}`),
+  ];
+  const hitText = hitBits.length
+    ? ` Hit: ${hitBits.join(", ")}.`
+    : flood.pastEvents[0]
+      ? ` Closest record ~${flood.pastEvents[0].distanceM}m (${flood.pastEvents[0].name}).`
+      : "";
+
+  return [
+    {
+      id: "flood-risk",
+      label:
+        flood.level === "high"
+          ? "High modelled flood risk"
+          : flood.level === "significant"
+            ? "Significant modelled flood risk"
+            : flood.level === "moderate"
+              ? "Moderate / extreme-event flood extent"
+              : flood.level === "residual"
+                ? "Historical flood nearby"
+                : "Low flood context nearby",
+      detail: `${flood.summary}${hitText}`,
+      severity,
+      category: "area",
+    },
+  ];
+}
+
 function areaReasons(area?: AreaIntel): ScoreReason[] {
   if (!area) return [];
-  const reasons: ScoreReason[] = [];
+  const reasons: ScoreReason[] = [...floodReasons(area)];
 
   const near = area.planning.filter((p) => p.distanceM <= 200);
   if (near.length > 0) {
@@ -103,7 +177,7 @@ function rentReasons(fair: ReturnType<typeof assessFairRent>): ScoreReason[] {
   ];
 }
 
-function pickTopReasons(reasons: ScoreReason[], max = 4): ScoreReason[] {
+function pickTopReasons(reasons: ScoreReason[], max = 5): ScoreReason[] {
   const rank = { high: 0, medium: 1, low: 2 };
   return [...reasons]
     .sort((a, b) => rank[a.severity] - rank[b.severity])

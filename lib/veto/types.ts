@@ -66,6 +66,45 @@ export interface PlanningItem {
   status: string;
 }
 
+export type FloodLevel =
+  | "none"
+  | "low"
+  | "residual"
+  | "moderate"
+  | "significant"
+  | "high"
+  | "unknown";
+
+export interface FloodExtentHit {
+  aepLabel: string;
+  returnYears: number;
+  layer: string;
+}
+
+export interface FloodPastEvent {
+  name: string;
+  date?: string;
+  distanceM: number;
+  recordType?: string;
+  severityIndex?: number;
+}
+
+/** Point check against OPW floodinfo.ie CFRAM extents + nearby past events. */
+export interface FloodRisk {
+  level: FloodLevel;
+  /** 0–100 indicative severity for UI (not an official OPW score). */
+  score: number;
+  summary: string;
+  details: string[];
+  fluvial: FloodExtentHit[];
+  coastal: FloodExtentHit[];
+  pastEvents: FloodPastEvent[];
+  source: "opw-floodinfo";
+  checkedAt: string;
+  mapUrl: string;
+  reachable: boolean;
+}
+
 export interface AreaIntel {
   address: string;
   lat: number;
@@ -78,6 +117,7 @@ export interface AreaIntel {
   source: "curated" | "computed";
   /** True if data.corkcity.ie responded; does not mean planning pins are live. */
   openDataReachable: boolean;
+  flood?: FloodRisk;
 }
 
 export interface VetoResult {

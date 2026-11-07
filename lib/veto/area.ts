@@ -1,4 +1,5 @@
 import areaCache from "@/data/areaCache.json";
+import { assessFloodRisk } from "./flood";
 import type { AreaIntel, PlanningItem } from "./types";
 
 type CacheEntry = {
@@ -54,7 +55,10 @@ export async function getAreaIntel(
   if (lat == null || lng == null) return undefined;
 
   const cached = cache[keyFor(lat, lng)] ?? nearestCache(lat, lng);
-  const openDataReachable = await pingCorkOpenData();
+  const [openDataReachable, flood] = await Promise.all([
+    pingCorkOpenData(),
+    assessFloodRisk(lat, lng),
+  ]);
 
   if (cached) {
     const notes = [
@@ -73,6 +77,7 @@ export async function getAreaIntel(
       notes,
       source: "curated",
       openDataReachable,
+      flood,
     };
   }
 
@@ -91,5 +96,6 @@ export async function getAreaIntel(
     ],
     source: "computed",
     openDataReachable,
+    flood,
   };
 }

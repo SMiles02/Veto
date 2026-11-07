@@ -1,16 +1,21 @@
 "use client";
 
 import type { AreaIntel, NearbyComp } from "@/lib/veto/types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   MapContainer,
   Marker,
   Popup,
   TileLayer,
+  WMSTileLayer,
   useMap,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+
+/** OPW CFRAM 1% fluvial + 0.5% coastal extents for map context. */
+const FLOOD_OVERLAY =
+  "esds_floodmaps:ext_f_c_0100,esds_floodmaps:ext_c_c_0200";
 
 const listingIcon = L.divIcon({
   className: "",
@@ -80,6 +85,13 @@ export function MapPinInner({
   comps: NearbyComp[];
   listingRent: number;
 }) {
+  const showFloodDefault =
+    area.flood != null &&
+    area.flood.level !== "none" &&
+    area.flood.level !== "unknown" &&
+    area.flood.level !== "low";
+  const [showFlood, setShowFlood] = useState(showFloodDefault);
+
   return (
     <div className="overflow-hidden rounded-lg border border-ink/10">
       <MapContainer
@@ -92,6 +104,17 @@ export function MapPinInner({
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        {showFlood && (
+          <WMSTileLayer
+            url="https://www.floodinfo.ie/geoserver/wms"
+            layers={FLOOD_OVERLAY}
+            format="image/png"
+            transparent
+            opacity={0.55}
+            version="1.1.1"
+            attribution='Flood extents &copy; <a href="https://www.floodinfo.ie">OPW</a>'
+          />
+        )}
         <FitBounds area={area} comps={comps} />
         <Marker position={[area.lat, area.lng]} icon={listingIcon}>
           <Popup>
@@ -100,6 +123,12 @@ export function MapPinInner({
             Asking €{listingRent}/mo
             <br />
             {area.neighbourhood} · {area.commuteMinutesToUcc} min to UCC
+            {area.flood ? (
+              <>
+                <br />
+                Flood: {area.flood.level}
+              </>
+            ) : null}
           </Popup>
         </Marker>
         {comps.map((comp) => (
@@ -129,7 +158,7 @@ export function MapPinInner({
           </Marker>
         ))}
       </MapContainer>
-      <div className="flex flex-wrap gap-3 border-t border-ink/10 bg-paper/90 px-3 py-2 text-[11px] text-ink/70">
+      <div className="flex flex-wrap items-center gap-3 border-t border-ink/10 bg-paper/90 px-3 py-2 text-[11px] text-ink/70">
         <span>
           <span className="mr-1 inline-block h-2 w-2 bg-veto" />
           This listing
@@ -146,6 +175,19 @@ export function MapPinInner({
           <span className="mr-1 inline-block h-2 w-2 bg-ink" />
           Similar
         </span>
+        {area.flood && (
+          <button
+            type="button"
+            onClick={() => setShowFlood((v) => !v)}
+            className={`ml-auto rounded-sm border px-2 py-0.5 transition ${
+              showFlood
+                ? "border-tide/40 bg-tide/10 text-tide"
+                : "border-ink/15 text-mute hover:border-ink/30"
+            }`}
+          >
+            {showFlood ? "Flood overlay on" : "Flood overlay"}
+          </button>
+        )}
       </div>
     </div>
   );

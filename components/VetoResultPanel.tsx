@@ -2,6 +2,7 @@
 
 import type { ListingInput, VetoResult } from "@/lib/veto/types";
 import Link from "next/link";
+import { FloodRiskPanel } from "./FloodRiskPanel";
 import { MapPin } from "./MapPin";
 import { ReasonList } from "./ReasonList";
 import { RtbVerifyPanel } from "./RtbVerifyPanel";
@@ -54,6 +55,20 @@ export function VetoResultPanel({
               {result.fairRent.percentDiff}% vs €{result.fairRent.median}
             </dd>
           </div>
+          {result.area?.flood && (
+            <div className="col-span-2">
+              <dt className="text-mute">Flood</dt>
+              <dd className="capitalize text-ink">
+                {result.area.flood.level === "none"
+                  ? "Clear at pin"
+                  : result.area.flood.level}
+                <span className="text-mute">
+                  {" "}
+                  · {result.area.flood.score}/100
+                </span>
+              </dd>
+            </div>
+          )}
         </dl>
       </div>
 
@@ -104,6 +119,8 @@ export function VetoResultPanel({
           )}
         </div>
       </div>
+
+      {result.area?.flood && <FloodRiskPanel flood={result.area.flood} />}
 
       <div className="flex flex-wrap gap-3 border-t border-ink/10 pt-6">
         <button type="button" onClick={onReset} className="btn-ghost py-2.5">
