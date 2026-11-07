@@ -56,5 +56,245 @@
       }
     ],
     "notes": ["Quieter residential pocket", "Slightly longer walk/bus to UCC"]
+  },
+  "51.8886,-8.5012": {
+    "address": "Glasheen Road, Cork",
+    "lat": 51.8886,
+    "lng": -8.5012,
+    "commuteMinutesToUcc": 12,
+    "neighbourhood": "Glasheen",
+    "planning": [
+      {
+        "id": "23/0891",
+        "title": "Residential extension, Glasheen Road",
+        "summary": "House extension ~180m away. Short construction period expected.",
+        "distanceM": 180,
+        "status": "Granted"
+      }
+    ],
+    "notes": [
+      "Popular with UCC and hospital workers",
+      "Bus links toward Wilton and city centre"
+    ]
+  },
+  "51.8848,-8.5095": {
+    "address": "Wilton Road, Cork",
+    "lat": 51.8848,
+    "lng": -8.5095,
+    "commuteMinutesToUcc": 16,
+    "neighbourhood": "Wilton",
+    "planning": [
+      {
+        "id": "24/1204",
+        "title": "Retail / café fit-out near Wilton",
+        "summary": "Minor commercial works near shopping centre. Limited housing impact.",
+        "distanceM": 320,
+        "status": "Granted"
+      }
+    ],
+    "notes": [
+      "Close to CUH and Wilton Shopping Centre",
+      "Strong bus corridor to UCC and MTU"
+    ]
+  },
+  "51.882,-8.54": {
+    "address": "Bishopstown, Cork",
+    "lat": 51.882,
+    "lng": -8.54,
+    "commuteMinutesToUcc": 22,
+    "neighbourhood": "Bishopstown",
+    "planning": [
+      {
+        "id": "23/3310",
+        "title": "Student / rental intensification near MTU",
+        "summary": "Watch for denser shared housing near campus. Parking pressure is common.",
+        "distanceM": 250,
+        "status": "Further Information"
+      }
+    ],
+    "notes": [
+      "MTU-facing demand as well as UCC bus traffic",
+      "Usually cheaper than College Road for similar rooms"
+    ]
+  },
+  "51.91,-8.47": {
+    "address": "Blackpool, Cork",
+    "lat": 51.91,
+    "lng": -8.47,
+    "commuteMinutesToUcc": 25,
+    "neighbourhood": "Blackpool",
+    "planning": [
+      {
+        "id": "22/2105",
+        "title": "Retail park / mixed-use works",
+        "summary": "Commercial works near shopping area. Traffic peaks evenings and weekends.",
+        "distanceM": 400,
+        "status": "Granted"
+      }
+    ],
+    "notes": [
+      "Check flood history carefully on Watercourse Road corridor",
+      "Bus into city; longer late-night trip back to UCC"
+    ]
+  },
+  "51.8895,-8.59": {
+    "address": "Ballincollig, Cork",
+    "lat": 51.8895,
+    "lng": -8.59,
+    "commuteMinutesToUcc": 35,
+    "neighbourhood": "Ballincollig",
+    "planning": [
+      {
+        "id": "24/0550",
+        "title": "Housing estate completion phases",
+        "summary": "Ongoing suburban housing nearby. Construction noise possible on some streets.",
+        "distanceM": 500,
+        "status": "Granted"
+      }
+    ],
+    "notes": [
+      "Town amenities strong; UCC needs a reliable bus plan",
+      "Often better value than inner Cork for similar rooms"
+    ]
+  },
+  "51.877,-8.435": {
+    "address": "Douglas, Cork",
+    "lat": 51.877,
+    "lng": -8.435,
+    "commuteMinutesToUcc": 30,
+    "neighbourhood": "Douglas",
+    "planning": [
+      {
+        "id": "23/4012",
+        "title": "Apartment scheme, Douglas village fringe",
+        "summary": "Larger residential proposal within ~350m. May change parking and traffic.",
+        "distanceM": 350,
+        "status": "Further Information"
+      }
+    ],
+    "notes": [
+      "Village shops and buses are strong",
+      "Maryborough / Grange pockets vary a lot on rent"
+    ]
+  },
+  "51.895,-8.42": {
+    "address": "Blackrock, Cork",
+    "lat": 51.895,
+    "lng": -8.42,
+    "commuteMinutesToUcc": 28,
+    "neighbourhood": "Blackrock",
+    "planning": [
+      {
+        "id": "22/1788",
+        "title": "Marina / greenway-adjacent works",
+        "summary": "Public realm and residential proposals along the eastern corridor.",
+        "distanceM": 450,
+        "status": "Granted"
+      }
+    ],
+    "notes": [
+      "Marina Greenway is a real lifestyle plus",
+      "Bus into city; confirm last bus times"
+    ]
+  },
+  "51.885,-8.39": {
+    "address": "Mahon, Cork",
+    "lat": 51.885,
+    "lng": -8.39,
+    "commuteMinutesToUcc": 32,
+    "neighbourhood": "Mahon",
+    "planning": [
+      {
+        "id": "23/2666",
+        "title": "Retail / office activity near Mahon Point",
+        "summary": "Commercial intensity near shopping centre. Evening traffic can be heavy.",
+        "distanceM": 380,
+        "status": "Granted"
+      }
+    ],
+    "notes": [
+      "Mahon Point amenities nearby",
+      "Longer UCC commute; good if you work east side"
+    ]
+  },
+  "51.882,-8.48": {
+    "address": "Ballyphehane, Cork",
+    "lat": 51.882,
+    "lng": -8.48,
+    "commuteMinutesToUcc": 18,
+    "neighbourhood": "Ballyphehane",
+    "planning": [
+      {
+        "id": "24/0112",
+        "title": "Dwelling upgrade / extension",
+        "summary": "Small residential works nearby. Low strategic impact.",
+        "distanceM": 220,
+        "status": "Granted"
+      }
+    ],
+    "notes": [
+      "Often better value than College Road",
+      "Direct buses toward city and orbital routes"
+    ]
+  },
+  "51.888,-8.47": {
+    "address": "Turners Cross, Cork",
+    "lat": 51.888,
+    "lng": -8.47,
+    "commuteMinutesToUcc": 20,
+    "neighbourhood": "Turners Cross",
+    "planning": [
+      {
+        "id": "23/0900",
+        "title": "Change of use near Evergreen / Tower Street",
+        "summary": "Mixed residential proposals in a dense inner suburb.",
+        "distanceM": 200,
+        "status": "Further Information"
+      }
+    ],
+    "notes": [
+      "Walkable to city southside",
+      "Match day / stadium nights can be loud near Páirc Uí Chaoimh routes"
+    ]
+  },
+  "51.898,-8.475": {
+    "address": "Cork City Centre",
+    "lat": 51.898,
+    "lng": -8.475,
+    "commuteMinutesToUcc": 18,
+    "neighbourhood": "City Centre",
+    "planning": [
+      {
+        "id": "24/2001",
+        "title": "City-centre mixed-use / hospitality works",
+        "summary": "Hospitality and apartment activity nearby. Night-time noise is the main risk.",
+        "distanceM": 150,
+        "status": "Granted"
+      }
+    ],
+    "notes": [
+      "Check flood risk near the Lee quays carefully",
+      "Short hop to UCC by bus; nightlife noise varies street by street"
+    ]
+  },
+  "51.889,-8.5": {
+    "address": "Magazine Road, Cork",
+    "lat": 51.889,
+    "lng": -8.5,
+    "commuteMinutesToUcc": 10,
+    "neighbourhood": "Magazine Road",
+    "planning": [
+      {
+        "id": "23/1555",
+        "title": "House share / extension proposals",
+        "summary": "Dense student streets. Extensions and conversions show up often.",
+        "distanceM": 140,
+        "status": "Granted"
+      }
+    ],
+    "notes": [
+      "Classic UCC student belt",
+      "Rents swing hard between basic rooms and all-inclusive digs"
+    ]
   }
 }
