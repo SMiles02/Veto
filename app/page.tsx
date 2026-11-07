@@ -46,14 +46,14 @@ export default function HomePage() {
               aria-hidden
             />
             <div
-              className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/35 to-ink/40"
+              className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/30 to-ink/25"
               aria-hidden
             />
             <div
-              className="absolute inset-0 opacity-25 mix-blend-soft-light"
+              className="absolute inset-0 opacity-20 mix-blend-soft-light"
               style={{
                 backgroundImage:
-                  "linear-gradient(115deg, transparent 35%, rgba(15,118,110,0.45) 100%)",
+                  "linear-gradient(115deg, transparent 40%, rgba(15,118,110,0.4) 100%)",
               }}
               aria-hidden
             />
