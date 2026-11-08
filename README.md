@@ -169,8 +169,6 @@ Shipped in a day at Corkathon (UCC Computer Science Society, with IGNITE UCC and
 ## Built by
 
 - **Suneet Mahajan** - [LinkedIn](https://www.linkedin.com/in/suneetmahajan/) · [GitHub](https://github.com/SMiles02)
-- **Bryan Chan** - [LinkedIn](https://www.linkedin.com/in/bryan-chan99/) · [GitHub](https://github.com/the-shibbach)
-- **Sean Buckley** - [LinkedIn](https://www.linkedin.com/in/sean-buckley-872606301/)
 
 Built for Corkathon 2026.
 
